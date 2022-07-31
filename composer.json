@@ -66,7 +66,8 @@
             ],
             "file-mapping": {
                 "[web-root]/sites/default/all.settings.php": "assets/all.settings.php",
-                "[web-root]/sites/default/redis-unavailable.services.yml": "assets/redis-unavailable.services.yml"
+                "[web-root]/sites/default/redis-unavailable.services.yml": "assets/redis-unavailable.services.yml",
+                "[project-root]/drush/sites/example.site.yml": "assets/example.site.yml"
             },
             "locations": {
                 "web-root": "web/"

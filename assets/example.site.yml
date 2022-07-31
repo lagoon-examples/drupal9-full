@@ -1,0 +1,13 @@
+
+## This file is included as an example of a valid drush wildcard alias - preconfigured for amazeeio.cloud.
+## Replace the `host` URL and the ssh.options `path` for your particular install. Also remember to set the
+## `ssh` and `api` values inside the .lagoon.yml file
+
+'*':
+  host: ssh.amazeeio.cloud
+  paths:
+    files: /app/web/sites/default/files
+  user: ${env-name}
+  ssh:
+    options: '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=FATAL -p 32222'
+    tty: false
