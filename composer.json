@@ -1,5 +1,5 @@
 {
-    "name": "lagoon-examples/drupal9-base",
+    "name": "lagoon-examples/drupal9-full",
     "description": "Project template for Drupal 9 projects with MariaDB, hosted on Lagoon",
     "type": "project",
     "license": "GPL-2.0-or-later",
@@ -24,6 +24,9 @@
         "drupal/core-project-message": "9.4.4",
         "drupal/core-recommended": "9.4.4",
         "drupal/lagoon_logs": "2.0.1",
+        "drupal/redis": "1.5.0",
+        "drupal/search_api": "1.25.0",
+        "drupal/search_api_solr": "4.2.8",
         "drush/drush": "11.1.1",
         "zaporylie/composer-drupal-optimizations": "1.2.0"
     },
@@ -62,7 +65,8 @@
                 "amazeeio/drupal_integrations"
             ],
             "file-mapping": {
-                "[web-root]/sites/default/all.settings.php": "assets/all.settings.php"
+                "[web-root]/sites/default/all.settings.php": "assets/all.settings.php",
+                "[web-root]/sites/default/redis-unavailable.services.yml": "assets/redis-unavailable.services.yml"
             },
             "locations": {
                 "web-root": "web/"

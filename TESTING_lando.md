@@ -1,7 +1,8 @@
-Lando Drupal 9 base - php8, nginx, mariadb
-==========================================
+Lando Drupal 9 Full option  - php8, nginx, mariadb, solr, redis
+===============================================================
 
-This example exists primarily to test the following documentation:
+This is a Lando version of the Lagoon-example tests:
+
 
 * [Lagoon Recipe - Drupal 9](https://docs.lando.dev/config/lagoon.html)
 
@@ -32,18 +33,19 @@ lando drush cr -y
 lando drush status | grep "Drupal bootstrap" | grep "Successful"
 
 # Should have all the services we expect
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_nginx_1
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_mariadb_1
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_mailhog_1
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_php_1
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_cli_1
-docker ps --filter label=com.docker.compose.project=drupal9base | grep Up | grep drupal9base_lagooncli_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_nginx_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_mariadb_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_mailhog_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_php_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_cli_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_lagooncli_1
+docker ps --filter label=com.docker.compose.project=drupal9full | grep Up | grep drupal9full_solr_1
 
 # Should ssh against the cli container by default
 lando ssh -c "env | grep LAGOON=" | grep cli-drupal
 
 # Should have the correct environment set
-lando ssh -c "env" | grep LAGOON_ROUTE | grep drupal9-base.lndo.site
+lando ssh -c "env" | grep LAGOON_ROUTE | grep drupal9-full.lndo.site
 lando ssh -c "env" | grep LAGOON_ENVIRONMENT_TYPE | grep development
 
 # Should be running PHP 8
@@ -72,6 +74,15 @@ lando lagoon --version | grep lagoon
 
 # Should have a running Drupal 9 site served by nginx on port 8080
 lando ssh -s cli -c "curl -kL http://nginx:8080" | grep "Welcome to Drush Site-Install"
+
+# Should have a "drupal" Solr core
+lando ssh -s cli -c "curl solr:8983/solr/admin/cores?action=STATUS&core=drupal"
+
+# Should be able to reload "drupal" Solr core
+lando ssh -s cli -c "curl solr:8983/solr/admin/cores?action=RELOAD&core=drupal"
+
+# Check Solr has 7.x config in "drupal" core
+lando ssh -s solr -c "cat /opt/solr/server/solr/mycores/drupal/conf/schema.xml | grep solr-7.x"
 
 # Should be able to db-export and db-import the database
 lando db-export test.sql
