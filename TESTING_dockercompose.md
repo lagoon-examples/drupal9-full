@@ -71,22 +71,22 @@ docker-compose exec -T cli bash -c "yarn --version"
 docker-compose exec -T cli bash -c "curl -kL http://nginx:8080" | grep "Drush Site-Install"
 
 # Should have a "drupal" Solr core
-docker-compose exec -T cli bash -c "curl solr:8983/solr/admin/cores?action=STATUS'&'core=drupal"
+docker-compose exec -T cli bash -c "curl solr:8983/solr/admin/cores?action=STATUS\&core=drupal"
 
 # Should be able to reload "drupal" Solr core
-docker-compose exec -T cli bash -c "curl solr:8983/solr/admin/cores?action=RELOAD'&'core=drupal"
+docker-compose exec -T cli bash -c "curl solr:8983/solr/admin/cores?action=RELOAD\&core=drupal"
 
 # Check Solr has 8.x config in "drupal" core
 docker-compose exec -T solr bash -c "cat /var/solr/data/drupal/conf/schema.xml | grep solr-8.x"
 
 # redis-6 Should be running Redis v6.0
-docker-compose exec -T redis sh -c "redis-server --version" | grep -Ev "^0$"
+docker-compose exec -T redis sh -c "redis-server --version" | grep "v=6."
 
 # redis-6 Should be able to see Redis databases
 docker-compose exec -T redis sh -c "redis-cli CONFIG GET databases"
 
-# redis-6 databases should be initialized
-docker-compose exec -T redis sh -c "drush cr && redis-cli dbsize" | 
+# redis-6 databases should be populated
+docker-compose exec -T redis sh -c "redis-cli dbsize" | grep -Ev "^0$"
 
 # Should be able to db-export and db-import the database
 docker-compose exec -T cli bash -c "drush sql-dump --result-file /app/test.sql"
