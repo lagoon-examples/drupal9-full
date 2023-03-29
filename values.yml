@@ -1,0 +1,8 @@
+#Replace the default with your project's name below
+projectName: defaultProjectName
+
+# Set this value to "true" if you need a Solr pod
+enableSolr: false
+
+#Set this value to "true" if you need a redis cache
+enableRedis: false
