@@ -100,7 +100,7 @@ services:
       << : *default-environment
     volumes:
       - db:/var/lib/mysql
-{{if .enableSolr}}
+{{if .enableSolr.answer }}
   solr:
     build:
       context: .
@@ -119,7 +119,7 @@ services:
     volumes:
       - search:/var/solr
 {{end}}
-{{if .enableRedis}}
+{{if .enableRedis.answer }}
   redis:
     image: uselagoon/redis-6:latest
     labels:
