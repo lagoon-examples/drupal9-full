@@ -1,0 +1,15 @@
+questions:
+- name: projectName
+  help: The system name your project will be known by
+  type: text
+  required: true
+  prompt: What is your project's name
+  default: myproject
+- name: enableSolr
+  type: conditional
+  prompt: Do you need a Solr installation
+  help: Do you need a Solr installation
+- name: enableRedis
+  type: conditional
+  prompt: Do you need a Redis installation
+  help: Do you need a Redis installation
