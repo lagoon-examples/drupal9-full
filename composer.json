@@ -24,7 +24,7 @@
         "drupal/core-project-message": "9.5.9",
         "drupal/core-recommended": "9.5.9",
         "drupal/lagoon_logs": "2.1.1",
-        "drupal/redis": "1.6.0",
+        "drupal/redis": "1.7.0",
         "drupal/search_api": "1.29.0",
         "drupal/search_api_solr": "4.2.10",
         "drush/drush": "11.6.0",
